@@ -1,0 +1,24 @@
+<database name="libro" defaultIdMethod="native"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd"
+          namespace="Esnuab/Libro/Propel/Model"
+        >
+    <table name="socio" phpName="Socio">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="esncard" type="varchar" size="20" required="true"/>
+        <column name="nombre" type="varchar" size="255" required="true"/>
+        <column name="apellido" type="varchar" size="255" required="true"/>
+        <column name="email" type="varchar" size="255" required="true"/>
+        <column name="dni" type="varchar" size="30" required="true"/>
+        <column name="pais" type="varchar" size="2" required="true"/>
+        <column name="idioma" type="varchar" size="2" required="true"/>
+        <column name="alta" type="varchar" size="8" required="true"/>
+        <column name="baja" type="varchar" size="8" required="true"/>
+        <column name="activo" type="tinyint" size="1" defaultValue="1"/> 
+        <unique>
+            <unique-column name="esncard"/>
+            <unique-column name="email"/>
+        </unique>
+        <behavior name="timestampable"/>
+    </table>
+</database>

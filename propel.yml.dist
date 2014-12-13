@@ -1,0 +1,15 @@
+propel:
+    paths:
+        schemaDir: /var/www/php/libro/config
+        outputDir: /var/www/php/libro/config/propel
+        phpDir: /var/www/php/libro/src
+        sqlDir: /var/www/php/libro/config/propel/generated-sql
+    database:
+        connections:
+            default:
+                adapter: mysql
+                dsn: mysql:host=localhost;dbname=libro
+                user: root
+                password: alejandro88
+                settings:
+                    charset: utf8
