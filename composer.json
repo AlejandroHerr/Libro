@@ -1,0 +1,19 @@
+{
+    "name": "alejandro/libro",
+    "require-dev": {
+        "silex/silex": "~1.2",
+    	"propel/propel": "2.0.*@dev",        
+	    "propel/propel-service-provider": "2.*@dev"
+    },
+    "authors": [
+        {
+            "name": "AlejandroHerr",
+            "email": "alejandrohnc88@gmail.com"
+        }
+    ],
+    "autoload":{
+        "psr-0":{
+             "Esnuab\\Libro\\": "src/"
+        }
+    }
+}
