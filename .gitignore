@@ -26,5 +26,5 @@ sftp-config.js
 ### Propel ###
 propel/
 propel.yml
-*/Model.Base/
-*/Map/
+**/Model.Base/
+**/Map/
