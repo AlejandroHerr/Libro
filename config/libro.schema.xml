@@ -1,11 +1,11 @@
 <database name="libro" defaultIdMethod="native"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd"
-          namespace="Esnuab/Libro/Propel/Model"
+          namespace="Esnuab\Libro\Model"
         >
     <table name="socio" phpName="Socio">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
-        <column name="esncard" type="varchar" size="20" required="true"/>
+        <column name="esncard" type="varchar" size="15" required="true"/>
         <column name="nombre" type="varchar" size="255" required="true"/>
         <column name="apellido" type="varchar" size="255" required="true"/>
         <column name="email" type="varchar" size="255" required="true"/>
@@ -20,5 +20,15 @@
             <unique-column name="email"/>
         </unique>
         <behavior name="timestampable"/>
+        <behavior name="validate">
+            <parameter name="rule00" value="{column: nombre, validator: NotNull}" />
+            <parameter name="rule01" value="{column: nombre, validator: Length, options: {max:  255, min: 2}}" />
+            <parameter name="rule10" value="{column: apellido, validator: NotNull}" />
+            <parameter name="rule11" value="{column: apellido, validator: Length, options: {max:  255, min: 2}}" />
+            <parameter name="rule20" value="{column: email, validator: NotNull}" />
+            <parameter name="rule21" value="{column: email, validator: Email}" />
+            <parameter name="rule30" value="{column: esncard, validator: NotNull}" />
+            <parameter name="rule31" value="{column: esncard, validator: Length, options: {max:  10, min: 15}}" />
+        </behavior>
     </table>
 </database>
