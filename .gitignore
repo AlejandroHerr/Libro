@@ -28,6 +28,7 @@ propel/
 propel.yml
 **/Model/Base/
 **/Model/Map/
+config/config.php
 
 ### PhpDox ###
 build/
