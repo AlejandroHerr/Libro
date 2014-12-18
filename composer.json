@@ -3,7 +3,8 @@
     "require-dev": {
         "silex/silex": "~1.2",
     	"propel/propel": "2.0.*@dev",        
-	    "propel/propel-service-provider": "2.*@dev"
+	    "propel/propel-service-provider": "2.*@dev",
+        "herrera-io/silex-wise": "2.0.*@dev"
     },
     "authors": [
         {
@@ -13,6 +14,7 @@
     ],
     "autoload":{
         "psr-0":{
+            "AlejandroHerr\\": "src/Lib",
              "Esnuab\\Libro\\": "src/"
         }
     }
