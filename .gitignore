@@ -24,7 +24,7 @@ vendor/
 sftp-config.js
 
 ### Propel ###
-propel/
+propel
 propel.yml
 **/Model/Base/
 **/Model/Map/
