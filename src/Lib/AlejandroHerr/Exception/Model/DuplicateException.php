@@ -7,9 +7,9 @@ class DuplicateException extends AbstractException
 {
     public function __construct($field, $code = 0, \Exception $e = null)
     {
-        $message = sprintf('Resource \'%s\' with id %u not found.', $type, $id);
+        $message = sprintf('Field %s already exist', $field);
         $this->setArrayMessage($message);
 
-        parent::__construct(sprintf('Field %s already exist', $field));
+        parent::__construct($message);
     }
 }
