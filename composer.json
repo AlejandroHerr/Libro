@@ -4,7 +4,10 @@
         "silex/silex": "~1.2",
     	"propel/propel": "2.0.*@dev",        
 	    "propel/propel-service-provider": "2.*@dev",
-        "herrera-io/silex-wise": "2.0.*@dev"
+        "herrera-io/silex-wise": "2.0.*@dev",
+        "twig/twig": ">=1.8,<2.0-dev",
+        "symfony/twig-bridge": "2.6.1"
+
     },
     "authors": [
         {
