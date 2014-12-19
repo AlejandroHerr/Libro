@@ -12,8 +12,8 @@
         <column name="dni" type="varchar" size="30" required="true"/>
         <column name="pais" type="varchar" size="2" required="true"/>
         <column name="idioma" type="varchar" size="2" required="true"/>
-        <column name="alta" type="varchar" size="8" required="true"/>
-        <column name="baja" type="varchar" size="8" required="true"/>
+        <column name="alta" type="varchar" size="10" required="true"/>
+        <column name="baja" type="varchar" size="10" required="true"/>
         <column name="activo" type="tinyint" size="1" defaultValue="1"/> 
         <unique>
             <unique-column name="esncard"/>
@@ -28,7 +28,7 @@
             <parameter name="rule20" value="{column: email, validator: NotNull}" />
             <parameter name="rule21" value="{column: email, validator: Email}" />
             <parameter name="rule30" value="{column: esncard, validator: NotNull}" />
-            <parameter name="rule31" value="{column: esncard, validator: Length, options: {max:  10, min: 15}}" />
+            <parameter name="rule31" value="{column: esncard, validator: Length, options: {min:  10, max: 15}}" />
         </behavior>
     </table>
 </database>
