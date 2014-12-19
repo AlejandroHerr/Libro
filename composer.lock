@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0dd498b09e3070d497ec2eeb5419fed3",
+    "hash": "43adaf587c0b612c945d99fc26573926",
     "packages": [],
     "packages-dev": [
         {
@@ -404,6 +404,157 @@
                 "microframework"
             ],
             "time": "2014-09-26 09:32:30"
+        },
+        {
+            "name": "stack/builder",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stackphp/builder.git",
+                "reference": "14afc80a5bd9dc160470e3131b697f7d0c070729"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stackphp/builder/zipball/14afc80a5bd9dc160470e3131b697f7d0c070729",
+                "reference": "14afc80a5bd9dc160470e3131b697f7d0c070729",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "symfony/http-foundation": "~2.1",
+                "symfony/http-kernel": "~2.1"
+            },
+            "require-dev": {
+                "silex/silex": "~1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Stack": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                }
+            ],
+            "description": "Builder for stack middlewares based on HttpKernelInterface.",
+            "keywords": [
+                "stack"
+            ],
+            "time": "2014-12-09 14:20:11"
+        },
+        {
+            "name": "stack/lazy-http-kernel",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stackphp/LazyHttpKernel.git",
+                "reference": "fda8ec75870a363c68a5bdbcd53c61e943243d3d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stackphp/LazyHttpKernel/zipball/fda8ec75870a363c68a5bdbcd53c61e943243d3d",
+                "reference": "fda8ec75870a363c68a5bdbcd53c61e943243d3d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "symfony/http-foundation": "~2.1",
+                "symfony/http-kernel": "~2.1"
+            },
+            "require-dev": {
+                "stack/callable-http-kernel": "~1.0@dev",
+                "stack/url-map": "~1.0@dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Stack": "src"
+                },
+                "files": [
+                    "src/Stack/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                }
+            ],
+            "description": "HttpKernelInterface lazy proxy.",
+            "keywords": [
+                "stack"
+            ],
+            "time": "2014-11-04 15:17:55"
+        },
+        {
+            "name": "stack/url-map",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stackphp/url-map.git",
+                "reference": "0364cdad4c1a914d7f6435dfef6495ad3beae477"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stackphp/url-map/zipball/0364cdad4c1a914d7f6435dfef6495ad3beae477",
+                "reference": "0364cdad4c1a914d7f6435dfef6495ad3beae477",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/http-foundation": "~2.1",
+                "symfony/http-kernel": "~2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7",
+                "silex/silex": "~1.0@dev",
+                "stack/builder": "~1.0@dev",
+                "stack/callable-http-kernel": "~1.0@dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Stack\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christoph Hochstrasser",
+                    "email": "christoph.hochstrasser@gmail.com"
+                }
+            ],
+            "description": "URL Map middleware.",
+            "time": "2014-08-06 20:56:57"
         },
         {
             "name": "symfony/config",
@@ -1339,7 +1490,10 @@
     "stability-flags": {
         "propel/propel": 20,
         "propel/propel-service-provider": 20,
-        "herrera-io/silex-wise": 20
+        "herrera-io/silex-wise": 20,
+        "stack/builder": 20,
+        "stack/lazy-http-kernel": 20,
+        "stack/url-map": 20
     },
     "prefer-stable": false,
     "platform": [],
