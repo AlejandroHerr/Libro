@@ -12,11 +12,13 @@ $api = S\lazy(function () {
     return require 'RestLibro.php';
 });
 
-$map = [ '/api' => $api ];
+$map = [
+    '/api' => $api,
+];
 
 $app = (new Builder())
-        ->push('Stack\UrlMap', $map)
-        ->resolve($app);
+    ->push('Stack\UrlMap', $map)
+    ->resolve($app);
 
 $request = Request::createFromGlobals();
 
