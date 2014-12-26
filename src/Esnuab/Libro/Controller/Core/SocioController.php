@@ -76,6 +76,28 @@ abstract class SocioController
 
         return $socio;
     }
+    /**
+     * Read resource and versions.
+     * @param  int   $id Id of the resource
+     * @return array
+     */
+    protected function readWhole($id)
+    {
+        $socio = $this->read($id);
+
+        $socioVersions = $socio->getAllVersions();
+        $socio = $socio->toArray();
+        foreach ($socioVersions as $socioVersion) {
+            $socio['versions'][$socioVersion->getVersion()] = [
+                'version' => $socioVersion->getVersion(),
+                'createdBy' => $socioVersion->getVersionCreatedBy(),
+                'createdAt' => $socioVersion->getVersionCreatedAt(),
+                'comment' => $socioVersion->getVersionComment(),
+            ];
+        }
+
+        return $socio;
+    }
     protected function query($page = 1, $maxPerPage = 50)
     {
         $socioPage = SocioQuery::create()
