@@ -23,8 +23,7 @@ abstract class SocioController
     {
         if (is_array($socio)) {
             $s = new Socio();
-            $s->fromArray($socio);
-            $socio = $s;
+            $socio = $s->fromArray($socio);
         }
 
         if (!$socio->validate()) {
@@ -55,7 +54,8 @@ abstract class SocioController
     protected function delete($id)
     {
         $socio = $this->read($id);
-        $socio->delete();
+        $socio->setRemoved(1);
+        $socio->save();
     }
     /**
      * Read resource by id
@@ -78,7 +78,9 @@ abstract class SocioController
     }
     protected function query($page = 1, $maxPerPage = 50)
     {
-        $socioPage = SocioQuery::create()->paginate($page, $maxPerPage);
+        $socioPage = SocioQuery::create()
+            ->filterByRemoved(0)
+            ->paginate($page, $maxPerPage);
 
         return $socioPage;
     }
