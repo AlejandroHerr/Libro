@@ -81,10 +81,12 @@ abstract class SocioController
      * @param  int   $id Id of the resource
      * @return array
      */
-    protected function readWhole($id)
+    protected function readVersion($id, $version = null)
     {
         $socio = $this->read($id);
-
+        if (null !== $version) {
+            $socio->toVersion($version);
+        }
         $socioVersions = $socio->getAllVersions();
         $socio = $socio->toArray();
         foreach ($socioVersions as $socioVersion) {

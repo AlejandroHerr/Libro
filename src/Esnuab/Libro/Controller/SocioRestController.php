@@ -91,15 +91,15 @@ class SocioRestController extends Core\SocioController implements CrudController
      *
      * @return Response Response instance
      */
-    public function readAction(Application $app, $id)
+    public function readAction(Application $app, $id, $version = null)
     {
         try {
-            $socio = $this->read($id);
+            $socio = $this->readVersion($id, $version);
         } catch (SocioNotFoundException $e) {
             throw new HttpException(404, 'Resource not Found', $e);
         }
 
-        return new JsonResponse($socio->toArray());
+        return new JsonResponse($socio);
     }
     /**
      * Updates existing element
