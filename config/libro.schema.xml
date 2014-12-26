@@ -14,11 +14,17 @@
         <column name="idioma" type="varchar" size="2" required="true"/>
         <column name="alta" type="varchar" size="10" required="true"/>
         <column name="baja" type="varchar" size="10" required="true"/>
-        <column name="activo" type="tinyint" size="1" defaultValue="1"/> 
+        <column name="activo" type="tinyint" size="1" defaultValue="1"/>
+        <column name="removed" type="tinyint" size="1" defaultValue="0"/> 
         <unique>
             <unique-column name="esncard"/>
             <unique-column name="email"/>
         </unique>
+        <behavior name="versionable">
+            <parameter name="log_created_at" value="true" />
+            <parameter name="log_created_by" value="true" />
+            <parameter name="log_comment" value="true" />
+        </behavior>
         <behavior name="timestampable"/>
         <behavior name="validate">
             <parameter name="rule00" value="{column: nombre, validator: NotNull}" />
