@@ -15,6 +15,10 @@ abstract class AbstractException extends \RuntimeException implements ExceptionI
 
     protected function setArrayMessage($message)
     {
-        $this->arrayMessage = ['message' => $message];
+        if (is_array($message)) {
+            $this->arrayMessage = $message;
+        } else {
+            $this->arrayMessage[] = $message;
+        }
     }
 }

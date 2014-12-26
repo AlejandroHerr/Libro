@@ -3,7 +3,7 @@ namespace AlejandroHerr\Exception\Model;
 
 use AlejandroHerr\Exception\Arr\AbstractException;
 
-class ResourceNotFoundException extends AbstractException
+class ResourceNotFoundException extends AbstractException implements ModelExceptionInterface
 {
     public function __construct($type, $id, $code = 0, \Exception $e = null)
     {

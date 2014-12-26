@@ -3,7 +3,7 @@ namespace AlejandroHerr\Exception\Model;
 
 use AlejandroHerr\Exception\Arr\AbstractException;
 
-class ValidationException extends AbstractException
+class ValidationException extends AbstractException implements ModelExceptionInterface
 {
     public function __construct($message, $code = 0, \Exception $e = null)
     {
