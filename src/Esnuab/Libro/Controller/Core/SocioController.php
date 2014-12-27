@@ -108,10 +108,12 @@ abstract class SocioController
 
         return $socioPage;
     }
-    protected function update($id, $sData)
+    protected function update($socio, $id = null)
     {
-        $socio = $this->read($id);
-        $socio->fromArray($sData);
+        if (false === $socio instanceof Socio) {
+            $s = $this->read($id);
+            $socio = $s->fromArray($socio);
+        }
         if (!$socio->validate()) {
             $m = array();
             foreach ($socio->getValidationFailures() as $failure) {
