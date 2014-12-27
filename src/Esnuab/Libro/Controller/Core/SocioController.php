@@ -54,8 +54,7 @@ abstract class SocioController
     protected function delete($id)
     {
         $socio = $this->read($id);
-        $socio->setRemoved(1);
-        $socio->save();
+        $socio->delete();
     }
     /**
      * Read resource by id
@@ -107,6 +106,12 @@ abstract class SocioController
             ->paginate($page, $maxPerPage);
 
         return $socioPage;
+    }
+    protected function softDelete($id)
+    {
+        $socio = $this->read($id);
+        $socio->setRemoved(1);
+        $socio->save();
     }
     protected function update($socio, $id = null)
     {
