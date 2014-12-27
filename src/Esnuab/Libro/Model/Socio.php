@@ -23,7 +23,32 @@ class Socio extends BaseSocio
             $this->setAlta(date('Y-m-d'));
         }
 
+        if (null === $this->getVersionComment()) {
+            $this->setVersionComment('Socio creado.');
+        }
+
         return true;
+    }
+
+    public function preUpdate(ConnectionInterface $con = null)
+    {
+        if (!$this->isReallyModified()) {
+            return false;
+        }
+
+        if (null === $this->getVersionComment()) {
+            $this->setVersionComment('Socio editado.');
+        }
+
+        return true;
+    }
+
+    private function isReallyModified()
+    {
+        $versionFields = [ 'socio.version' , 'socio.version_created_at' , 'socio.version_comment'];
+        $modifiedFields = array_unique(array_merge($this->getModifiedColumns(), $versionFields));
+
+        return (count($modifiedFields) > 3);
     }
 
     public function setNombre($v)
