@@ -25,7 +25,9 @@
             <parameter name="log_created_by" value="true" />
             <parameter name="log_comment" value="true" />
         </behavior>
-        <behavior name="timestampable"/>
+        <behavior name="timestampable">
+            <parameter name="disable_updated_at" value="true" />
+        </behavior>
         <behavior name="validate">
             <parameter name="rule00" value="{column: nombre, validator: NotNull}" />
             <parameter name="rule01" value="{column: nombre, validator: Length, options: {max:  255, min: 2}}" />
