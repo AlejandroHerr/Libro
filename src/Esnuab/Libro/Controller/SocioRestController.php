@@ -113,9 +113,13 @@ class SocioRestController extends Core\SocioController implements CrudController
     public function updateAction(Application $app, Request $request, $id)
     {
         try {
-            $socio = $this->update($id, $request->request->all());
+            $socio = $this->read($id);
         } catch (SocioNotFoundException $e) {
             throw new HttpException(404, 'Resource not Found', $e);
+        }
+        try {
+            $socio = $socio->fromArray($request->request->all());
+            $socio = $this->update($id, $request->request->all());
         } catch (ValidationException $e) {
             throw new HttpException(422, 'Validation Exception', $e);
         } catch (DuplicateException $e) {

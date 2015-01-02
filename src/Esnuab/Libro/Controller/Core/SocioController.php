@@ -113,12 +113,13 @@ abstract class SocioController
         $socio->setRemoved(1);
         $socio->save();
     }
-    protected function update($socio, $id = null)
+    /**
+     * Updates a socio record
+     * @param  Socio $socio Socio
+     * @return Socio Updated socio
+     */
+    protected function update($socio)
     {
-        if (false === $socio instanceof Socio) {
-            $s = $this->read($id);
-            $socio = $s->fromArray($socio);
-        }
         if (!$socio->validate()) {
             $m = array();
             foreach ($socio->getValidationFailures() as $failure) {
