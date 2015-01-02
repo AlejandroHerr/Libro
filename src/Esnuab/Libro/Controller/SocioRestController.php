@@ -47,7 +47,7 @@ class SocioRestController extends Core\SocioController implements CrudController
     public function deleteAction(Application $app, $id)
     {
         try {
-            $this->delete($id);
+            $this->softDelete($id);
         } catch (SocioNotFoundException $e) {
             throw new HttpException(404, 'Resource not Found', $e);
         }
@@ -95,11 +95,13 @@ class SocioRestController extends Core\SocioController implements CrudController
     {
         try {
             $socio = $this->readVersion($id, $version);
+            $socioVersions = $this->readVersions($socio);
         } catch (SocioNotFoundException $e) {
             throw new HttpException(404, 'Resource not Found', $e);
         }
+        $response = ['socio' => $socio->toArray(), 'versions' => $socioVersions];
 
-        return new JsonResponse($socio);
+        return new JsonResponse($response);
     }
     /**
      * Updates existing element

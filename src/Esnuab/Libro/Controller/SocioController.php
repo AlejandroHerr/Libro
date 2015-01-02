@@ -142,9 +142,13 @@ class SocioController extends Core\SocioController implements CrudControllerInte
     {
         try {
             $socio = $this->readVersion($id, $version);
+            $socioVersions = $this->readVersions($socio);
         } catch (SocioNotFoundException $e) {
             throw new HttpException(404, 'Resource not Found', $e);
         }
+
+        $socio = $socio->toArray();
+        $socio['versions'] = $socioVersions;
 
         return $app['twig']->render('read.twig', ['socio' => $socio]);
     }

@@ -86,10 +86,19 @@ abstract class SocioController
         if (null !== $version) {
             $socio->toVersion($version);
         }
+
+        return $socio;
+    }
+    /**
+     * Read the versions of the Socio
+     * @param  Socio $socio Socio
+     * @return array Associative array with the versions
+     */
+    protected function readVersions($socio)
+    {
         $socioVersions = $socio->getAllVersions();
-        $socio = $socio->toArray();
         foreach ($socioVersions as $socioVersion) {
-            $socio['versions'][$socioVersion->getVersion()] = [
+            $versions[$socioVersion->getVersion()] = [
                 'version' => $socioVersion->getVersion(),
                 'createdBy' => $socioVersion->getVersionCreatedBy(),
                 'createdAt' => $socioVersion->getVersionCreatedAt(),
@@ -97,7 +106,7 @@ abstract class SocioController
             ];
         }
 
-        return $socio;
+        return $versions;
     }
     protected function query($page = 1, $maxPerPage = 50)
     {
