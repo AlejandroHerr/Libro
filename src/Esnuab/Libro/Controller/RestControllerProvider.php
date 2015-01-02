@@ -26,6 +26,9 @@ class RestControllerProvider implements ControllerProviderInterface, ServiceProv
             ->before('rest.socio_controller:parsePayload');
         $controllers->get('/socio/{id}', 'rest.socio_controller:readAction')
             ->assert('id', '\d+');
+        $controllers->get('/socio/{id}/v{version}', 'rest.socio_controller:readAction')
+            ->assert('id', '\d+')
+            ->assert('version', '\d+');
         $controllers->delete('/socio/{id}', 'rest.socio_controller:deleteAction')
             ->assert('id', '\d+');
         $controllers->match('/socio/{id}', 'rest.socio_controller:updateAction')
