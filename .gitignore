@@ -34,3 +34,6 @@ config/config.php
 build/
 skeleton.xml
 *phpdox*
+
+### OTHER ###
+cache
