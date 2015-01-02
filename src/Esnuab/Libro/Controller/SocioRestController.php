@@ -70,7 +70,7 @@ class SocioRestController extends Core\SocioController implements CrudController
         $sociosPager = $this->query($page, $maxPerPage);
 
         $response = [
-            'resource' => $sociosPager->toArray(null, null, TableMap::TYPE_CAMELNAME),
+            'socios' => $sociosPager->toArray(null, null, TableMap::TYPE_CAMELNAME),
             'pagination' => [
                 'page' => $sociosPager->getPage(),
                 'lastPage' => $sociosPager->getLastPage(),
