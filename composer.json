@@ -9,7 +9,12 @@
         "symfony/twig-bridge": "2.6.1",
         "stack/builder": "1.0.*@dev",
         "stack/lazy-http-kernel": "1.0.*@dev",
-        "stack/url-map": "1.0.*@dev"
+        "stack/url-map": "1.0.*@dev",
+        "symfony/form": "~2.3",
+        "symfony/security-csrf": "~2.4",
+        "symfony/translation": "~2.3"
+
+
     },
     "authors": [
         {
@@ -20,7 +25,7 @@
     "autoload":{
         "psr-0":{
             "AlejandroHerr\\": "src/Lib",
-             "Esnuab\\Libro\\": "src/"
+             "Esnuab\\": "src/"
         }
     }
 }
