@@ -103,6 +103,7 @@ abstract class SocioController
     {
         $socioPage = SocioQuery::create()
             ->filterByRemoved(0)
+            ->filterByActivo(1)
             ->paginate($page, $maxPerPage);
 
         return $socioPage;
