@@ -50,10 +50,12 @@ class ControllerProvider implements ControllerProviderInterface, ServiceProvider
         $controllers->get('/socios', 'socio_controller:queryAction')
             ->bind('query_socio');
         $controllers->get('/socios/{page}', 'socio_controller:queryAction')
-            ->assert('page', '\d+');
+            ->assert('page', '\d+')
+            ->bind('paging_socio');
         $controllers->get('/socios/{page}/{maxPerPage}', 'socio_controller:queryAction')
             ->assert('page', '\d+')
-            ->assert('maxPerPage', '\d+');
+            ->assert('maxPerPage', '\d+')
+            ->bind('total_paging_socio');
 
         return $controllers;
     }
