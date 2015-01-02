@@ -1,0 +1,23 @@
+<nav>
+    <ul class="pagination">
+        {% if pagination.page == 1 %}
+            {% set previous_attr = 'disabled' %}
+        {% endif %}
+        {% if pagination.page == pagination.lastPage %}
+            {% set next_attr = 'disabled' %}
+        {% endif %}
+        <li class="{{previous_attr|default('')}}"><a href="{{ url(url_name, { page : 1, maxPerPage : pagination.maxPerPage }) }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+        {% for i in 1..pagination.lastPage %}
+            {% set page_attr = '' %}
+            {% set page_span = '' %}
+            {% if pagination.page == i %}
+                {% set page_attr = 'active' %}
+                {% set page_span = ' <span class="sr-only">(current)</span>' %}
+            {% endif %}
+            <li class="{{page_attr}}">
+                <a href="{{ url(url_name, { page : i, maxPerPage : pagination.maxPerPage }) }}">{{i}} {{page_span|raw}}</a>
+            </li>
+        {% endfor %}
+        <li class="{{next_attr|default()}}"><a href="{{ url(url_name, { page : pagination.lastPage, maxPerPage : pagination.maxPerPage }) }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+</nav>
