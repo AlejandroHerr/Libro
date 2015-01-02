@@ -1,0 +1,116 @@
+{% extends 'base/base.twig' %}
+{% block title %}Socio #{{socio.id}}{% endblock %}
+{% block head %}
+  {{ parent() }}
+{% endblock %}
+{% block content %}
+  <h1 class="page-header">Socio #{{socio.id}}</h1>
+  {% include 'flashbag.twig' %}
+
+  <h2 class="sub-header">Datos</h2>
+  <div class="form-horizontal">
+    <div class="form-group">
+      <label class="col-sm-4 control-label">ESNcard</label>
+      <div class="col-sm-6">
+        <p class="form-control-static">{{socio.esncard}}</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Nombre</label>
+      <div class="col-sm-6">
+        <p class="form-control-static">{{socio.nombre}}</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Apellido</label>
+      <div class="col-sm-6">
+        <p class="form-control-static">{{socio.apellido}}</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Email</label>
+      <div class="col-sm-6">
+        <p class="form-control-static">{{socio.email}}</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label">DNI</label>
+      <div class="col-sm-6">
+        <p class="form-control-static">{{socio.dni}}</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Fecha de Alta</label>
+      <div class="col-sm-6">
+        <p class="form-control-static">{{socio.alta}}</p>
+      </div>
+    </div>
+    {% if socio.activo == 0 %}
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Fecha de Baja</label>
+      <div class="col-sm-6">
+        <p class="form-control-static">{{socio.baja}}</p>
+      </div>
+    </div>
+    {% endif %}
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Pais</label>
+      <div class="col-sm-6">
+        <p class="form-control-static">{{socio.pais|countries}}</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Idioma</label>
+      <div class="col-sm-6">
+        <p class="form-control-static">{{socio.idioma}}</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Acciones</label>
+        
+      
+      <div class="col-sm-6">
+      <a href="http://google.es" class="btn btn-warning">
+          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
+        </a>
+        <a href="http://google.es" class="btn btn-danger">
+      <span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Borrar
+    </a>
+      </div>
+    </div>
+  </div> 
+  <h3 class="sub-header">Detalles de esta versión</h3>
+  <p>Este socio fue creado el {{ socio.versions.1.createdAt.date }} por {{socio.versions.1.createdBy }}.{% if socio.versions.1.createdAt.date != socio.versionCreatedAt.date %} Versión editada el {{socio.versionCreatedAt.date}} por {{socio.versionCreatedBy}}.{% endif %}</p>
+  <h2 class="sub-header">Versiones</h2>
+  <div class="panel panel-default table-responsive">
+    <table class="table table-striped">
+      <tr>
+        <th>#</th>
+        <th>Comentario</th>
+        <th>Fecha</th>
+        <th>Autor</th>
+      </tr>
+      {% for version in socio.versions %}
+        {% set hash = '' %}
+        {% set row_class = '' %}
+        {% set cell_class = '' %}
+        {% if version.version == socio.version %}
+          {% set  hash = '' %}
+          {% set row_class = 'active' %}
+          {% set cell_class = 'strong' %}
+        {% else %}
+          {% set hash = url('read_socio_version', { id : socio.id, version : version.version }) %}   
+        {% endif %}
+        <tr class="{{row_class}}">
+          <td class="{{cell_class}}"><a href="{{ hash }}">{{version.version}}</a></td>
+          <td class="{{cell_class}}">{{version.comment}}</td>
+          <td class="{{cell_class}}">{{version.createdAt.date}}</td>
+          <td class="{{cell_class}}">{{version.createdBy}}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}
+{% block scripts %}
+  {{ parent() }}
+{% endblock %}
