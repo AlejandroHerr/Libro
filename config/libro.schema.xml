@@ -1,7 +1,7 @@
 <database name="libro" defaultIdMethod="native"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd"
-          namespace="Esnuab\Libro\Model"
+          namespace="EsnUab\Libro\Model"
         >
     <table name="socio" phpName="Socio">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
@@ -11,11 +11,11 @@
         <column name="email" type="varchar" size="255" required="true"/>
         <column name="dni" type="varchar" size="30" required="true"/>
         <column name="pais" type="varchar" size="2" required="true"/>
-        <column name="idioma" type="varchar" size="2" required="true"/>
+        <column name="idioma" type="enum" valueSet="español,english" required="true"/>
         <column name="alta" type="varchar" size="10" required="true"/>
-        <column name="baja" type="varchar" size="10" required="true"/>
-        <column name="activo" type="tinyint" size="1" defaultValue="1"/>
-        <column name="removed" type="tinyint" size="1" defaultValue="0"/> 
+        <column name="baja" type="varchar" size="10" required="false"/>
+        <column name="activo" type="boolean" defaultValue="1"/>
+        <column name="removed" type="boolean" defaultValue="0"/> 
         <unique>
             <unique-column name="esncard"/>
             <unique-column name="email"/>
@@ -25,18 +25,16 @@
             <parameter name="log_created_by" value="true" />
             <parameter name="log_comment" value="true" />
         </behavior>
-        <behavior name="timestampable">
-            <parameter name="disable_updated_at" value="true" />
-        </behavior>
+        <behavior name="timestampable"/>
         <behavior name="validate">
-            <parameter name="rule00" value="{column: nombre, validator: NotNull}" />
-            <parameter name="rule01" value="{column: nombre, validator: Length, options: {max:  255, min: 2}}" />
-            <parameter name="rule10" value="{column: apellido, validator: NotNull}" />
-            <parameter name="rule11" value="{column: apellido, validator: Length, options: {max:  255, min: 2}}" />
-            <parameter name="rule20" value="{column: email, validator: NotNull}" />
-            <parameter name="rule21" value="{column: email, validator: Email}" />
-            <parameter name="rule30" value="{column: esncard, validator: NotNull}" />
-            <parameter name="rule31" value="{column: esncard, validator: Length, options: {min:  10, max: 15}}" />
+            <parameter name="rule0_0" value="{column: nombre, validator: NotNull}" />
+            <parameter name="rule0_1" value="{column: nombre, validator: Length, options: {max:  255, min: 2}}" />
+            <parameter name="rule1_0" value="{column: apellido, validator: NotNull}" />
+            <parameter name="rule1_1" value="{column: apellido, validator: Length, options: {max:  255, min: 2}}" />
+            <parameter name="rule2_0" value="{column: email, validator: NotNull}" />
+            <parameter name="rule2_1" value="{column: email, validator: Email}" />
+            <parameter name="rule3_0" value="{column: esncard, validator: NotNull}" />
+            <parameter name="rule3_1" value="{column: esncard, validator: Length, options: {min:  10, max: 15}}" />
         </behavior>
     </table>
 </database>
