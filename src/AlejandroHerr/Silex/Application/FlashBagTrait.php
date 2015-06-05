@@ -14,8 +14,9 @@ trait FlashBagTrait
      *
      * @see FlashBag::add($type, $message)
      */
-    public function addFlashBag($type, $message)
+    public function addFlashBag($type, $message, $context = '')
     {
+        $message = sprintf('<strong>%s</strong> %s', $message, $context);
         $this['session']->getFlashBag()->add($type, $message);
     }
 
