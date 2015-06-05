@@ -12,9 +12,9 @@
         "stack/url-map": "1.0.*@dev",
         "symfony/form": "~2.3",
         "symfony/security-csrf": "~2.4",
-        "symfony/translation": "~2.3"
-
-
+        "symfony/translation": "~2.3",
+        "symfony/security": "~2.3",
+        "monolog/monolog": ">=1.0.0"
     },
     "authors": [
         {
@@ -23,9 +23,9 @@
         }
     ],
     "autoload":{
-        "psr-0":{
-            "AlejandroHerr\\": "src/Lib",
-             "Esnuab\\": "src/"
+        "psr-4":{
+            "AlejandroHerr\\": "src/AlejandroHerr",
+            "EsnUab\\": "src/EsnUab"
         }
     }
 }
