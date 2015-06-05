@@ -1,0 +1,19 @@
+propel:
+    paths:
+        schemaDir: config
+        outputDir: config/propel
+        phpDir: src
+        sqlDir: config/propel/generated-sql
+        phpConfDir: config
+    generator:
+        objectModel:
+            defaultKeyType: camelName
+    database:
+        connections:
+            libro:
+                adapter: mysql
+                dsn: mysql:host=localhost;dbname=
+                user:
+                password:
+                settings:
+                    charset: utf8
