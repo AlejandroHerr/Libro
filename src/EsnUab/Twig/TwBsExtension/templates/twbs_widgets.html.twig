@@ -1,0 +1,72 @@
+{% block flashbag %}
+	{% spaceless %}
+		{% set alertTypeAvaillable = [ 'danger','warning','success','info','primary'] %}
+		{% if app.session.flashBag is defined %}
+			{%- for alertType in alertTypeAvaillable %}
+				{%- for alert in app.session.flashBag.get(alertType) %}
+					<div class="alert alert-{{ alertType }} alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						{{ alert|raw }}
+					</div>
+				{%- endfor %}
+			{%- endfor %}
+		{% endif %}
+	{% endspaceless %}
+{% endblock %}
+{% block pagination %}
+	<nav>
+    <ul class="pagination" data-url="{{url(route)}}"data-page="{{pagination.page}}" data-limit="{{pagination.limit}}" data-sort-field="{{pagination.sort_field}}" data-sort-sign="{{pagination.sort_sign}}">
+      {% set page_span = 1 %}
+      {% set previous_class = '' %}
+      {% set first_class = '' %}
+      {% set next_class = '' %}
+      {% set last_class = '' %}
+      {% if pagination.page == pagination.first_page %}
+        {% set previous_class = 'disabled' %}
+        {% set first_class = 'disabled' %}
+        {% set previous_link = url(route, { page : 1, limit : pagination.limit }) %}
+      {% else %}
+        {% set previous_link = url(route, { page : pagination.page - 1, limit : pagination.limit }) %}
+      {% endif %}
+      {% if pagination.page == pagination.last_page %}
+        {% set next_class = 'disabled' %}
+        {% set last_class = 'disabled' %}
+        {% set next_link = url(route, { page : pagination.last_page, limit : pagination.limit }) %}
+      {% else %}
+        {% set next_link = url(route, { page : (pagination.page + 1), limit : pagination.limit }) %}
+      {% endif %}
+      {% set first_page = pagination.page - page_span %}
+      {% set p_separator = '<li class="disabled"><a href="#">...</a></li>' %}
+      {% if first_page <= 1 %}
+        {% set p_separator = '' %}
+        {% set first_page = 1 %}
+      {% endif %}
+      {% set last_page = pagination.page + page_span %}
+      {% set n_separator = '<li class="disabled"><a href="#">...</a></li>' %} 
+      {% if last_page >= pagination.last_page %}
+        {% set n_separator = '' %}
+        {% set last_page = pagination.last_page %}
+      {% endif %}
+      
+      <li class="{{previous_class}}">
+        <a href="{{ previous_link }}" aria-label="Previous"><span aria-hidden="true"><i class="fa fa-angle-left"></i></span></a>
+      </li>
+      <li class="{{first_class}}">
+        <a href="{{url(route, { page : 1, limit : pagination.limit })}}" aria-label="First"><span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span></a>
+      </li>
+      {{p_separator|raw}}
+      {% for i in first_page..last_page %}
+        <li class="{% if i == pagination.page %}active{% endif %}">
+          <a href="{{url(route, { page : i, limit : pagination.limit})}}">{{i}} {% if i == pagination.page %} <span class="sr-only">(current)</span>{% endif %}</a>
+        </li>
+      {% endfor %}
+      {{n_separator|raw}}
+      <li class="{{last_class}}">
+        <a href="{{url(route, { page : pagination.last_page, limit : pagination.limit })}}" aria-label="Last"><span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span></a>
+      </li>
+      <li class="{{next_class}}">
+        <a href="{{ next_link }}" aria-label="Next"><span aria-hidden="true"><i class="fa fa-angle-right"></i></span></a>
+      </li>
+    </ul>
+  </nav>
+{% endblock %}
