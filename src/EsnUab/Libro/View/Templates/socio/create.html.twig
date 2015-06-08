@@ -1,0 +1,14 @@
+{% extends app.request.isXmlHttpRequest() ? "ajax.html.twig" : "socio/create_base.html.twig"%}
+
+{% set page = 'create' %}
+{% set title = 'Nuevo Socio' %}
+
+{% block ajax_content %}
+	
+	<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+	<div class="col-sm-11 col-sm-offset-1">{{flashbag()}}</div>
+	{{ form_start(form,{'attr': {'class': 'ajax-form'}}) }}    
+		{{form_widget(form)}}
+	{{ form_end(form) }}
+</div>
+{% endblock %}

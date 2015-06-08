@@ -1,0 +1,81 @@
+{% extends "base.html.twig"%}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+  <h1 class="page-header">{{title}}</h1>
+  {{flashbag()}}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="btn-group btn-group-sm sort-options">
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn btn-cyan dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            # Resultados <i class="fa fa-sort fa-fw"></i> <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu limit-menu" role="options">
+          {% for i in [5,10,25,50] %}
+            {% if i == pagination.limit %}
+              <li class= "active" data-value="{{i}}">
+                <a href="{{url("socio.list", { page : pagination.page, limit : i , sort : pagination.sort_sign ~ pagination.sort_field})}}"><i class="fa fa-check-square-o fa-fw"></i> {{i}}</a>
+              </li>
+            {% else %}
+              <li data-value="{{i}}">
+                <a href="{{url("socio.list", { page : pagination.page, limit : i , sort : pagination.sort_sign ~ pagination.sort_field})}}"><i class="fa fa-square-o fa-fw"></i> {{i}}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn btn-cyan dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            Orden <i class="fa fa-sort fa-fw"></i> <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu sort-menu" role="options">
+            {% for s in ['id', 'nombre', 'apellido', 'dni', 'email', 'alta'] %}
+              {% if s == pagination.sort_field %}
+                <li class="sort-field active" data-value="{{s}}">
+                  <a href="{{url("socio.list", { page : pagination.page, limit : pagination.limit , sort : pagination.sort_sign ~ s})}}"><i class="fa fa-check-square-o fa-fw"></i> {{s|capitalize}}</a>
+                </li>
+              {% else %}
+                <li class="sort-field" data-value="{{s}}">
+                  <a href="{{url("socio.list", { page : pagination.page, limit : pagination.limit , sort : pagination.sort_sign ~ s})}}"><i class="fa fa-square-o fa-fw"></i> {{s|capitalize}}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+            <li class="divider"></li>
+            {% for s in ['+','-'] %}
+              {% if s == pagination.sort_sign %}
+                <li class="sort-sign active" data-value="{{s}}">
+                  <a href="{{url("socio.list", { page : pagination.page, limit : pagination.limit , sort : s ~ pagination.sort_field})}}"><i class="fa fa-check-square-o fa-fw"></i> 
+              {% else %}
+                <li class="sort-sign" data-value="{{s}}">
+                  <a href="{{url("socio.list", { page : pagination.page, limit : pagination.limit , sort : s ~ pagination.sort_field})}}"><i class="fa fa-square-o fa-fw"></i>
+              {% endif %}
+              {% if s == '+' %}
+                {{" Ascendente"}}
+              {% else %}
+                {{" Descendente"}}
+              {% endif %}
+              </a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <button type="button" id="reload" class="btn btn-green">
+          <i class="fa fa-refresh fa-fw"></i>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <button type="button" id="reset" class="btn btn-orange">
+          <i class="fa fa-remove fa-fw"></i>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+      </div>
+    </div>
+    <div class="ajax-container" data-loader-proto="<div class='col-xs-12 ajax-loader text-center'><br><i class='fa fa-spinner fa-pulse'></i><br>...cargando...</div>">
+      {% block ajax_content %}{% endblock %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{parent()}}
+  <script src="{{app.assets_path}}/js/socios_list.js"></script>
+{% endblock %}

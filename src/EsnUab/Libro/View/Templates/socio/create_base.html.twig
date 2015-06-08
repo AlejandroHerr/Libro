@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+	<h1 class="page-header">{{title}}</h1>
+	<div class="row ajax-container">
+		{% block ajax_content %}{% endblock %}
+	</div>
+{% endblock %}
+{% block scripts %}
+  {{parent()}}
+  <script src="{{app.assets_path}}/js/socios_create.js"></script
+{% endblock %}
