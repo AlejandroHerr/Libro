@@ -1,0 +1,16 @@
+<div class="col-sm-3 col-md-2 sidebar sidebar-inverse">
+  <ul class="nav nav-sidebar">
+    <li class="{% if page == 'list' %}active{% endif %}">
+      <a href="{{ url('socio.list') }}"><i class="fa fa-list fa-fw"></i> Listado{% if page == 'list' %} <span class="sr-only">(current)</span>{% endif %}</a>
+    </li>
+    <li class="{% if page == 'create' %}active{% endif %}">
+      <a href="{{ url('socio.create') }}"><i class="fa fa-user-plus fa-fw"></i> Nuevo{% if page == 'create' %} <span class="sr-only">(current)</span>{% endif %}</a>
+    </li>
+    <li><a href="#">Analytics</a></li>
+    <li><a href="#">Export</a></li>
+  </ul>
+  <div class="footer">
+    <p class="footer-main" data-toggle="tooltip" title="All the Glorrry to the Hypnofrog!">Libro de Socios 0.x-dev<br><i class="fa fa-code"></i><i class="fa fa-code"></i><i class="fa fa-code"></i><br>Tenderly handcoded in the ESN UAB Barcelona Basement</p>
+    <p class="footer-links"><i class="fa fa-gavel"></i> Code licensed under <a href="http://opensource.org/licenses/mit-license.html">MIT License</a><br><i class="fa fa-github"></i> <a href="https://github.com/AlejandroHerr/Libro">Github Project</a></p>
+    </div>
+</div>

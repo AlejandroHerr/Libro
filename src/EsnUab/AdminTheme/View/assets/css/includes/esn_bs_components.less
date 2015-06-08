@@ -1,0 +1,107 @@
+//== Buttons
+.btn{
+  font-family: @font-family-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom-left-radius: 0px;
+}
+.btn-sm, .btn-xs{
+  //font-weight: 400;
+  //text-transform: none;
+}
+.btn-pink {
+  .button-variant(@btn-pink-color; @btn-pink-bg; @btn-pink-border);
+}
+.btn-cyan {
+  .button-variant(@btn-cyan-color; @btn-cyan-bg; @btn-cyan-border);
+}
+.btn-green {
+  .button-variant(@btn-green-color; @btn-green-bg; @btn-green-border);
+}
+.btn-orange {
+  .button-variant(@btn-orange-color; @btn-orange-bg; @btn-orange-border);
+}
+.btn-dark-blue {
+  .button-variant(@btn-dark-blue-color; @btn-dark-blue-bg; @btn-dark-blue-border);
+}
+
+//== Labels
+.label {
+  border-bottom-left-radius: 0px;
+}
+.label-pink {
+  .label-variant(@label-pink-bg);
+}
+
+.label-cyan {
+  .label-variant(@label-cyan-bg);
+}
+
+.label-green {
+  .label-variant(@label-green-bg);
+}
+
+.label-orange {
+  .label-variant(@label-orange-bg);
+}
+
+.label-dark-blue {
+  .label-variant(@label-dark-blue-bg);
+}
+
+//== Alerts
+.alert-pink {
+  .alert-variant(@alert-pink-bg; @alert-pink-border; @alert-pink-text);
+}
+.alert-cyan {
+  .alert-variant(@alert-cyan-bg; @alert-cyan-border; @alert-cyan-text);
+}
+.alert-green {
+  .alert-variant(@alert-green-bg; @alert-green-border; @alert-green-text);
+}
+.alert-orange {
+  .alert-variant(@alert-orange-bg; @alert-orange-border; @alert-orange-text);
+}
+.alert-dark-blue {
+  .alert-variant(@alert-dark-blue-bg; @alert-dark-blue-border; @alert-dark-blue-text);
+}
+
+//== Progresbars
+
+.progress-bar-pink {
+  .progress-bar-variant(@progress-bar-pink-bg);
+}
+
+.progress-bar-cyan {
+  .progress-bar-variant(@progress-bar-cyan-bg);
+}
+
+.progress-bar-green {
+  .progress-bar-variant(@progress-bar-green-bg);
+}
+
+.progress-bar-orange {
+  .progress-bar-variant(@progress-bar-orange-bg);
+}
+
+.progress-bar-dark-blue {
+  .progress-bar-variant(@progress-bar-dark-blue-bg);
+}
+
+//== Panels
+
+.panel-pink {
+  .panel-variant(@panel-pink-border; @panel-pink-text; @panel-pink-heading-bg; @panel-pink-border);
+}
+.panel-cyan {
+  .panel-variant(@panel-cyan-border; @panel-cyan-text; @panel-cyan-heading-bg; @panel-cyan-border);
+}
+.panel-green {
+  .panel-variant(@panel-green-border; @panel-green-text; @panel-green-heading-bg; @panel-green-border);
+}
+.panel-orange {
+  .panel-variant(@panel-orange-border; @panel-orange-text; @panel-orange-heading-bg; @panel-orange-border);
+}
+.panel-dark-blue {
+  .panel-variant(@panel-dark-blue-border; @panel-dark-blue-text; @panel-dark-blue-heading-bg; @panel-dark-blue-border);
+}
