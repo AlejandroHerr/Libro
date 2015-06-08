@@ -12,7 +12,8 @@ use Silex\Provider\FormServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use EsnUab\Twig\UtilsExtensionProvider;
-use EsnUab\Libro\Views\LibroTemplatesServiceProvider as LibroTemplates;
+use EsnUab\AdminTheme\View\AdminThemeTemplatesServiceProvider as ThemeTemplate;
+use EsnUab\Libro\View\LibroTemplatesServiceProvider as LibroTemplates;
 use EsnUab\Libro\EventListener\SocioListener;
 use EsnUab\Twig\TwBsExtension\TwBsExtensionProvider;
 
@@ -38,9 +39,10 @@ $app->register(new SessionServiceProvider());
 $app->register(new TranslationServiceProvider(), ['locale' => ['es'], 'locale_fallbacks' => ['es']]);
 
 $app->register(new TwigServiceProvider(), [
-    'twig.options' => ['debug' => true],
+    'twig.options' => ['debug' => $app['debug']],
     'twig.form.templates' => ['bootstrap_3_horizontal_layout.html.twig'],
 ]);
+$app->register(new ThemeTemplate());
 $app->register(new LibroTemplates());
 $app->register(new UtilsExtensionProvider());
 $app->register(new TwBsExtensionProvider());
