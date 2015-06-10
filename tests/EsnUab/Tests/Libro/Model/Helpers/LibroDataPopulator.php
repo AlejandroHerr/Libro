@@ -22,8 +22,7 @@ class LibroDataPopulator
     public static function depopulate($con = null)
     {
         $tableMapClasses = array(
-            'EsnUab\Libro\Model\Socio',
-            'EsnUab\Libro\Model\SocioVersion',
+            'EsnUab\Libro\Model\Map\SocioTableMap',
         );
         // free the memory from existing objects
         foreach ($tableMapClasses as $tableMapClass) {

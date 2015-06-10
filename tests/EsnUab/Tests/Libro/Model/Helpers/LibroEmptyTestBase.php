@@ -1,8 +1,8 @@
 <?php
 
-namespace Propel\Tests\Helpers\Bookstore;
+namespace EsnUab\Tests\Libro\Model\Helpers;
 
-abstract class LibroEmptyTestBase extends BookstoreTestBase
+abstract class LibroEmptyTestBase extends LibroTestBase
 {
     protected function setUp()
     {
