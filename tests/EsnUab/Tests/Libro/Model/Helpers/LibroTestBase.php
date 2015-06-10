@@ -4,13 +4,13 @@ namespace EsnUab\Tests\Libro\Model\Helpers;
 
 use EsnUab\Libro\Model\Map\SocioTableMap;
 use Propel\Runtime\Propel;
-use Propel\Tests\TestCaseFixturesDatabase;
 
 /**
  * Base class contains some methods shared by subclass test cases.
  */
-abstract class LibroTestBase extends TestCaseFixturesDatabase
+abstract class LibroTestBase extends \PHPUnit_Framework_TestCase
 {
+    protected static $withDatabaseSchema = true;
     /**
      * @var Boolean
      */
@@ -27,7 +27,7 @@ abstract class LibroTestBase extends TestCaseFixturesDatabase
     {
         parent::setUp();
         if (true !== self::$isInitialized) {
-            $file = __DIR__.'../../../../../../config/config.php';
+            $file = './config/config.php';
             if (!file_exists($file)) {
                 return;
             }
@@ -52,6 +52,7 @@ abstract class LibroTestBase extends TestCaseFixturesDatabase
             if ($this->con->isCommitable()) {
                 $this->con->commit();
             }
+            echo 'hola';
             $this->con = null;
         }
     }
