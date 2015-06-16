@@ -33,8 +33,10 @@ class TwBsExtension extends \Twig_Extension
 
     public function renderFlashBag(\Twig_Environment $twig, $context)
     {
+        $flashbag = $context['app']['session']->getFlashBag();
+
         return $twig->loadTemplate('twbs_widgets.html.twig')
-            ->displayBlock('flashbag', ['app' => $context['app']]);
+            ->displayBlock('flashbag', ['flashBag' => $flashbag]);
     }
 
     public function renderPagination(\Twig_Environment $twig, $pagination, $route)
