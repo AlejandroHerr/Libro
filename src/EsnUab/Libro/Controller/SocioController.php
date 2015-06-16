@@ -4,13 +4,11 @@ namespace EsnUab\Libro\Controller;
 
 use EsnUab\Libro\Form\SocioType;
 use EsnUab\Libro\Model\Socio;
-use EsnUab\Libro\Model\SocioQuery;
 use EsnUab\Libro\Model\SocioVersion;
 use Silex\Application;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use EsnUab\Libro\EventListener\SocioEvents;
 use EsnUab\Libro\EventListener\Event\SocioEvent;
 
@@ -79,38 +77,6 @@ class SocioController
     }
 
     /**
-     * Middleware to find a Socio by its id.
-     *
-     * @param int $socio Id
-     *
-     * @return Socio Found Socio
-     *
-     * @throws HttpException If the Socio doesn't exist
-     */
-    public function findSocio($socio)
-    {
-        if (null === $socio = SocioQuery::create()->findPK($socio)) {
-            throw new HttpException(404, 'El socio no existe!');
-        }
-
-        return $socio;
-    }
-
-    public function findSocioVersion(Request $request)
-    {
-        $socio = $this->findSocio($request->attributes->get('socio'));
-        $version = $socio->getOneVersion($request->attributes->get('version'));
-
-        if (null == $version) {
-            $request->attributes->set('version', $socio);
-        } else {
-            $request->attributes->set('version', $version);
-        }
-
-        $request->attributes->set('socio', $socio);
-    }
-
-    /**
      * Process the form of a create or update request.
      *
      * @param Request $request
@@ -137,6 +103,8 @@ class SocioController
     public function queryAction(Application $app)
     {
         $pager = $app['request']->attributes->get('pager');
+
+        $socios = [];
         foreach ($pager as $socio) {
             $socios[] = $socio->toArray();
         }
