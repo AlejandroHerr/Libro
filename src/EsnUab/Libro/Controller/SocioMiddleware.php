@@ -11,66 +11,39 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class SocioMiddleware
 {
     /**
-     * Middleware to find a Socio by its id.
+     * Set Socio instance in the request's attributes.
      *
-     * @param int $socio Id
-     *
-     * @return Socio Found Socio
+     * @param Request $request
      *
      * @throws HttpException If the Socio doesn't exist
      */
-    public function findSocio($socio)
+    public function findSocio(Request $request)
     {
+        $socio = $request->attributes->get('socio');
+
         if (null === $socio = SocioQuery::create()->findPK($socio)) {
             throw new HttpException(404, 'El socio no existe!');
         }
 
-        return $socio;
-    }
-
-    public function findSocioVersion(Request $request)
-    {
-        $socio = $this->findSocio($request->attributes->get('socio'));
-        $version = $socio->getOneVersion($request->attributes->get('version'));
-
-        if (null == $version) {
-            $request->attributes->set('version', $socio);
-        } else {
-            $request->attributes->set('version', $version);
-        }
-
         $request->attributes->set('socio', $socio);
     }
-
-    public function parseQuery(Request $request)
+    /**
+     * Set SocioVersion instance in the request's attributes.
+     *
+     * @param Request $request
+     *
+     * @throws HttpException If the Socio doesn't exist
+     */
+    public function findSocioVersion(Request $request)
     {
-        $query = $request->query;
-        //ORDER
-        if (null != $sort = $query->get('sort')) {
-            $sort = explode(',', $sort);
-            foreach ($sort as $value) {
-                $value = trim(strtolower($value));
-                if (false === strpos($value, '-')) {
-                    $parsedSorting[] = ['field' => $value, 'dir' => 'ASC'];
-                } else {
-                    $parsedSorting[] = ['field' => substr($value, 1), 'dir' => 'DESC'];
-                }
-            }
-        } else {
-            $parsedSorting[] = ['field' => 'id', 'dir' => 'desc'];
+        $socio = $request->attributes->get('socio');
+        $version = $request->attributes->get('version');
+
+        if (null == $version = $socio->getOneVersion($version)) {
+            $version = $socio->getOneVersion($socio->getLastVersionNumber());
         }
 
-        //FIELDS
-        $listOfFields = SocioTableMap::getFieldNames(SocioTableMap::TYPE_CAMELNAME);
-        if (null != $fields = $query->get('fields')) {
-            $fields = explode(',', $fields);
-            foreach ($fields as $field) {
-                if (in_array($field, $listOfFields)) {
-                }
-            }
-        }
-
-        $request->attributes->set('sort', $parsedSorting);
+        $request->attributes->set('version', $version);
     }
 
     public function parseSort(Request $request)
