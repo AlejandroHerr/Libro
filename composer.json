@@ -14,7 +14,8 @@
         "symfony/security-csrf": "~2.4",
         "symfony/translation": "~2.3",
         "symfony/security": "~2.3",
-        "monolog/monolog": ">=1.0.0"
+        "monolog/monolog": ">=1.0.0",
+        "phpunit/phpunit": "^4.7"
     },
     "authors": [
         {
