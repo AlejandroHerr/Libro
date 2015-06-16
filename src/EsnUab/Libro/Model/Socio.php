@@ -71,7 +71,7 @@ class Socio extends BaseSocio
     public function setNombre($nombre)
     {
         $nombre = trim($nombre);
-        $nombre = ucwords($nombre);
+        $nombre = ucwords(strtolower($nombre));
 
         return parent::setNombre($nombre);
     }
@@ -79,7 +79,7 @@ class Socio extends BaseSocio
     public function setApellido($apellido)
     {
         $apellido = trim($apellido);
-        $apellido = ucwords($apellido);
+        $apellido = ucwords(strtolower($apellido));
 
         return parent::setApellido($apellido);
     }
