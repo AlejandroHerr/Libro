@@ -35,12 +35,13 @@ class MainControllerProvider implements ControllerProviderInterface, ServiceProv
             ->template('socio/query.html.twig');
         $controllers->get('/{socio}', 'socio/read')
             ->assert('socio', '\d+')
-            ->convert('socio', 'libro.socio.controller:findSocio')
+            ->before('libro.socio.middleware:findSocio')
             ->bind('socio.read')
             ->template('socio/read.html.twig');
         $controllers->get('/{socio}/v{version}', 'socio/readVersion')
             ->assert('socio', '\d+')
             ->assert('version', '\d+')
+            ->before('libro.socio.middleware:findSocio')
             ->before('libro.socio.middleware:findSocioVersion')
             ->bind('socio.read_version')
             ->template('socio/read.html.twig');
