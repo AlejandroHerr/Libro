@@ -14,24 +14,26 @@ use EsnUab\Libro\EventListener\Event\SocioEvent;
 
 class SocioController
 {
+    public function newAction(Application $app, Request $request)
+    {
+        $form = $this->createForm($app);
+
+        return ['form' => $form->createView()];
+    }
     public function createAction(Application $app, Request $request)
     {
-        $socio = new Socio();
-        $form = $this->getForm($app, $socio);
+        $form = $this->processForm($app);
 
-        if ('POST' !== $request->getMethod()) {
-            return ['form' => $form->createView()];
-        }
-
-        if (!$this->processForm($request, $form, $socio)) {
+        if ($form->isValid()) {
             $app->addFlashBag('danger', 'Hay problemas con los datos del socio.');
 
             return ['form' => $form->createView()];
         }
 
+        $socio = $form->getData();
         $app['dispatcher']->dispatch(SocioEvents::SOCIO_CREATED, new SocioEvent($socio));
 
-        return ['form' => $this->getForm($app)->createView()];
+        return ['form' => $this->createForm($app)->createView()];
     }
     public function deleteAction(Application $app, Socio $socio)
     {
@@ -76,30 +78,6 @@ class SocioController
         return $app->redirect($app->path('socio.read', ['socio' => $socio->getId()], 'GET'));
     }
 
-    /**
-     * Process the form of a create or update request.
-     *
-     * @param Request $request
-     * @param Form    $form
-     * @param Socio   $socio
-     *
-     * @return bool Returns true if the form was processed
-     */
-    protected function processForm(Request $request, Form $form, Socio $socio)
-    {
-        $form->handleRequest($request);
-
-        if ($socio->save()) {
-            return true;
-        }
-
-        foreach ($socio->getValidationFailures() as $failure) {
-            $form->get($failure->getPropertyPath())->addError(new FormError($failure->getMessage()));
-        }
-
-        return false;
-    }
-
     public function queryAction(Application $app)
     {
         $pager = $app['request']->attributes->get('pager');
@@ -125,10 +103,43 @@ class SocioController
         return $response;
     }
 
-    protected function getForm(Application $app, $socio = null, $action = 'crear')
+    /**
+     * Process the form.
+     *
+     * @param Application $app
+     * @param Socio|null  $socio  The Socio instance (for update actions)
+     * @param string      $action Type of action ('crear' or 'editar')
+     *
+     * @return Form Processed form
+     */
+    protected function processForm(Application $app, Socio $socio = null, $action = SocioType::SUBMIT_ACTION_CREAR)
+    {
+        $form = $this->createForm($app, $socio, $action);
+        $form->handleRequest($app['request']);
+        $socio = $form->getData();
+        if (!$socio->save()) {
+            foreach ($socio->getValidationFailures() as $failure) {
+                $form->get($failure->getPropertyPath())
+                    ->addError(new FormError($failure->getMessage()));
+            }
+        }
+
+        return $form;
+    }
+    /**
+     * Creates a SocioType form.
+     *
+     * @param Application $app
+     * @param Socio|null  $socio  The Socio instance (for update actions)
+     * @param string      $action Type of action ('crear' or 'editar')
+     *
+     * @return Form The form
+     */
+    protected function createForm(Application $app, Socio $socio = null, $action = SocioType::SUBMIT_ACTION_CREAR)
     {
         $socio = $socio === null ? new Socio() : $socio;
 
-        return $app['form.factory']->createBuilder(new SocioType(), $socio, ['action_type' => $action])->getForm();
+        return $app['form.factory']->createBuilder(new SocioType(), $socio, ['action_type' => $action])
+            ->getForm();
     }
 }
