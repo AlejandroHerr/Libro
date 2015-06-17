@@ -1,4 +1,5 @@
 <?php
+
 namespace EsnUab\Libro\Form;
 
 use EsnUab\Libro\Model\Map\SocioTableMap;
@@ -8,10 +9,13 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class SocioType extends AbstractType
 {
+    const SUBMIT_ACTION_CREAR = 'crear';
+    const SUBMIT_ACTION_EDITAR = 'editar';
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('esncard', 'text', [
-                'label' => 'ESNcard'
+                'label' => 'ESNcard',
             ])
             ->add('nombre')
             ->add('apellido')
@@ -19,19 +23,19 @@ class SocioType extends AbstractType
             ->add('email', 'email')
             ->add('pais', 'country')
             ->add('idioma', 'choice', [
-                'choices' => $this->getIdiomaValues()
+                'choices' => $this->getIdiomaValues(),
             ])
             ->add('alta', 'date', [
                 'widget' => 'single_text',
                 'input' => 'string',
-                'format' => 'yyyy-MM-dd'
+                'format' => 'yyyy-MM-dd',
             ]);
 
-        if ($options['action_type'] === 'crear') {
+        if ($options['action_type'] === self::SUBMIT_ACTION_CREAR) {
             $builder->add('Crear', 'submit', ['attr' => ['class' => 'btn-success']]);
-        } elseif ($options['action_type'] === 'editar') {
+        } elseif ($options['action_type'] === self::SUBMIT_ACTION_EDITAR) {
             $builder->add('version_comment', 'text', [
-                    'label' => 'Comentario'
+                    'label' => 'Comentario',
                 ])
                 ->add('Guardar', 'submit', ['attr' => ['class' => 'btn-warning']]);
         }
@@ -40,13 +44,13 @@ class SocioType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'EsnUab\\Libro\\Model\\Socio',
-            'csrf_protection'   => true,
+            'csrf_protection' => true,
             'action_type' => 'crear',
         ));
     }
     public function getName()
     {
-        return "socio";
+        return 'socio';
     }
 
     private function getIdiomaValues()
