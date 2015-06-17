@@ -46,10 +46,11 @@ class MainControllerProvider implements ControllerProviderInterface, ServiceProv
             ->bind('socio.read_version')
             ->template('socio/read.html.twig');
 
-        $controllers->match('/nuevo', 'socio/create')
-            ->method('GET|POST')
+        $controllers->get('/nuevo', 'socio/new')
             ->template('socio/create.html.twig')
             ->bind('socio.create');
+        $controllers->post('/nuevo', 'socio/create')
+            ->template('socio/create.html.twig');
 
         $controllers->match('/{socio}/editar', 'libro.controller.socio:updateAction')
             ->assert('socio', '\d+')
