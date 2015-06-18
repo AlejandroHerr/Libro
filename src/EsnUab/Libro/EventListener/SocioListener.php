@@ -18,11 +18,6 @@ class SocioListener implements EventSubscriberInterface
     public function onSocioCreated(SocioEvent $event)
     {
         $socio = $event->getSocio();
-        $this->app->addFlashBag(
-            'success',
-            '¡Socio creado correctamente!'.
-            sprintf('Puedes verlo <a href="%s">aqu&iacute;</a>.', $this->app->url('socio.read', ['socio' => $socio->getId()]))
-        );
     }
 
     public static function getSubscribedEvents()
