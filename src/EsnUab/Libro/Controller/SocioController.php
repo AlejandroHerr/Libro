@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use EsnUab\Libro\EventListener\SocioEvents;
 use EsnUab\Libro\EventListener\Event\SocioEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class SocioController
 {
@@ -24,7 +25,7 @@ class SocioController
     {
         $form = $this->processForm($app);
 
-        if ($form->isValid()) {
+        if (!$form->isValid()) {
             $app->addFlashBag('danger', 'Hay problemas con los datos del socio.');
 
             return ['form' => $form->createView()];
@@ -33,7 +34,16 @@ class SocioController
         $socio = $form->getData();
         $app['dispatcher']->dispatch(SocioEvents::SOCIO_CREATED, new SocioEvent($socio));
 
-        return ['form' => $this->createForm($app)->createView()];
+        $app->addFlashBag(
+            'success',
+            '¡Socio creado correctamente!'.
+            sprintf('Puedes verlo <a href="%s">aqu&iacute;</a>.', $app->url('socio.read', ['socio' => $socio->getId()]))
+        );
+
+        $forwardRequest = Request::create($app->url('socio.create'), 'GET');
+        $forwardRequest->headers->set('X-Requested-With', $request->headers->get('X-Requested-With'));
+
+        return $app->handle($forwardRequest, HttpKernelInterface::SUB_REQUEST);
     }
     public function deleteAction(Application $app, Socio $socio)
     {
