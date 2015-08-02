@@ -45,13 +45,6 @@ class SocioController
 
         return $app->handle($forwardRequest, HttpKernelInterface::SUB_REQUEST);
     }
-    public function deleteAction(Application $app, Socio $socio)
-    {
-        $socio->setRemoved(true)
-            ->save();
-
-        return $app->redirect($app->path('socio.read', ['socio' => $socio->getId()], 'GET'));
-    }
 
     public function readAction(Application $app, Socio $socio)
     {
@@ -97,6 +90,8 @@ class SocioController
             $socios[] = $socio->toArray();
         }
         $pagination = [
+            'current' => count($socios),
+            'total' => $pager->getNbResults(),
             'page' => $pager->getPage(),
             'first_page' => 1,
             'last_page' => $pager->getLastPage(),
@@ -111,6 +106,21 @@ class SocioController
         ];
 
         return $response;
+    }
+
+    public function modifyAction(Application $app, Socio $socio)
+    {
+        if ($socio->isModified()) {
+            /*
+             * @todo Add author of the version
+             */
+            $socio->save();
+            $app->addFlashBag('success', 'Datos actualizados correctamente.');
+        } else {
+            $app->addFlashBag('warning', 'Operación no realizada: La acción ya fue realizada con anterioridad.');
+        }
+
+        return $app->redirect($app->path('socio.read', ['socio' => $socio->getId()], 'GET'));
     }
 
     /**
