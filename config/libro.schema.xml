@@ -14,8 +14,8 @@
         <column name="idioma" type="enum" valueSet="español,english" required="true"/>
         <column name="alta" type="varchar" size="10" required="true"/>
         <column name="baja" type="varchar" size="10" required="false"/>
-        <column name="activo" type="boolean" defaultValue="1"/>
-        <column name="removed" type="boolean" defaultValue="0"/> 
+        <column name="activo" type="boolean" defaultValue="1" required="true"/>
+        <column name="removed" type="boolean" defaultValue="0" required="true"/> 
         <unique>
             <unique-column name="esncard"/>
             <unique-column name="email"/>
@@ -36,5 +36,13 @@
             <parameter name="rule3_0" value="{column: esncard, validator: NotNull}" />
             <parameter name="rule3_1" value="{column: esncard, validator: Length, options: {min:  10, max: 15}}" />
         </behavior>
+        <behavior name="delegate">
+            <parameter name="to" value="socio_account"/>
+        </behavior>
+    </table>
+    <table name="socio_account" phpName="SocioAccount" namespace="\\EsnUab\Libro\Security\Core\User">
+        <column name="salt" type="varchar" required="false"/>
+        <column name="password" type="varchar" required="false"/>
+        <column name="last_login" type="timestamp" required="false"/>
     </table>
 </database>
