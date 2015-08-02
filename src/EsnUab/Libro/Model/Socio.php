@@ -24,7 +24,6 @@ class Socio extends BaseSocio
         $versions = [];
         foreach ($this->getAllVersions() as $version) {
             $versions[] = [
-                'id' => $version->getId(),
                 'version' => $version->getVersion(),
                 'createdBy' => $version->getVersionCreatedBy(),
                 'createdAt' => $version->getVersionCreatedAt(),
