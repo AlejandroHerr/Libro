@@ -1,0 +1,25 @@
+<database name="libro" defaultIdMethod="native"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd"
+    namespace="EsnUab\Cron\Model">
+    <table name="cron_state" phpName="CronState">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="success" type="integer" size="2" required="true"></column>
+        <column name="warning" type="integer" size="2" required="true"></column>
+        <column name="error" type="integer" size="2" required="true"></column>
+        <behavior name="timestampable"/>
+    </table>
+    <table name="task" phpName="Task" abstract="true">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="target_id" type="integer" required="true"/>
+        <column name="success_flag" type="boolean" defaultValue="0" required="true"/>
+        <column name="warning_message" type="varchar"/>
+        <column name="warning_flag" type="boolean" defaultValue="0" required="true"/>
+        <column name="error_message" type="varchar"/>
+        <column name="error_flag" type="boolean" defaultValue="0" required="true"/>
+        <column name="type_key" type="integer" inheritance="single">
+            <inheritance key="1" class="SocioTask"/>
+        </column>
+        <behavior name="timestampable"/>
+    </table>
+</database>
