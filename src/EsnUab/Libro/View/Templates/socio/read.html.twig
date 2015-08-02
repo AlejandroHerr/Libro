@@ -1,47 +1,139 @@
 {% extends app.request.isXmlHttpRequest() ? "ajax.html.twig" : "socio/read_base.html.twig"%}
 
-{% set page = 'create' %}
+{% set page = 'read' %}
 {% set title = 'Socio #' ~ socio.id %}
 
 {% block ajax_content %}
-	<div class="col-xs-12 col-sm-10 col-sm-offset-1">
-		<div class="col-xs-12 col-sm-11 col-sm-offset-1">{{flashbag()}}</div>
-		<div class="form-horizontal">
-  		<div class="form-group">
-		    <label class="col-sm-2 control-label">ESNcard</label>
-		    <div class="col-sm-10">
-		      <p class="form-control-static">{{socio.esncard}}</p>
-		    </div>
-		    <label class="col-sm-2 control-label">Nombre</label>
-		    <div class="col-sm-10">
-		      <p class="form-control-static">{{socio.nombre}}</p>
-		    </div>
-		    <label class="col-sm-2 control-label">Apellido</label>
-		    <div class="col-sm-10">
-		      <p class="form-control-static">{{socio.apellido}}</p>
-		    </div>
-		    <label class="col-sm-2 control-label">Email</label>
-		    <div class="col-sm-10">
-		      <p class="form-control-static">{{socio.email}}</p>
-		    </div>
-		    <label class="col-sm-2 control-label">Email</label>
-		    <div class="col-sm-10">
-		      <p class="form-control-static">{{socio.email}}</p>
-		    </div>
-		    <label class="col-sm-2 control-label">Email</label>
-		    <div class="col-sm-10">
-		      <p class="form-control-static">{{socio.email}}</p>
-		    </div>
-		    <label class="col-sm-2 control-label">Email</label>
-		    <div class="col-sm-10">
-		      <p class="form-control-static">{{socio.email}}</p>
-		    </div>
-		    <label class="col-sm-2 control-label">Email</label>
-		    <div class="col-sm-10">
-		      <p class="form-control-static">{{socio.email}}</p>
-		    </div>
-
-		  </div>
-		</form>
+	<div class="col-xs-12">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1">{{flashbag()}}</div>
+		<div class="row">
+			<div class="form-horizontal col-xs-12 col-sm-6">
+		  	<div class="panel panel-default">
+					<div class="panel-heading"><h2 class='panel-title'><i class="fa fa-info fa-fw"></i> Datos</h2></div>
+		  		<div class="panel-body form-group">
+				    <label class="col-xs-2 col-sm-5 control-label">ESNcard</label>
+				    <div class="col-xs-10 col-sm-7">
+				      <p class="form-control-static">{{socio.esncard}}</p>
+				    </div>
+				    <label class="col-xs-2 col-sm-5 control-label">Nombre</label>
+				    <div class="col-xs-10 col-sm-7">
+				      <p class="form-control-static">{{socio.nombre}}</p>
+				    </div>
+				    <label class="col-xs-2 col-sm-5 control-label">Apellido</label>
+				    <div class="col-xs-10 col-sm-7">
+				      <p class="form-control-static">{{socio.apellido}}</p>
+				    </div>
+				    <label class="col-xs-2 col-sm-5 control-label">Email</label>
+				    <div class="col-xs-10 col-sm-7">
+				      <p class="form-control-static">{{socio.email}}</p>
+				    </div>
+				    <label class="col-xs-2 col-sm-5 control-label">DNI</label>
+				    <div class="col-xs-10 col-sm-7">
+				      <p class="form-control-static">{{socio.dni}}</p>
+				    </div>
+				    <label class="col-xs-2 col-sm-5 control-label">Pais</label>
+				    <div class="col-xs-10 col-sm-7">
+				      <p class="form-control-static">{{socio.pais}}</p>
+				    </div>
+				    <label class="col-xs-2 col-sm-5 control-label">Idioma</label>
+				    <div class="col-xs-10 col-sm-7">
+				      <p class="form-control-static">{{socio.idioma}}</p>
+				    </div>
+					</div>
+				</div>
+			</div>
+			<div class="form-horizontal col-xs-12 col-sm-6">
+		  	<div class="panel panel-default">
+					<div class="panel-heading"><h2 class='panel-title'><i class="fa fa-info-circle fa-fw"></i> Estado del Socio</h2></div>
+		  		<div class="panel-body form-group">
+				    <label class="col-xs-2 col-sm-5 control-label">Alta</label>
+				    <div class="col-xs-10 col-sm-7">
+				      <p class="form-control-static">{{socio.alta|date("m/d/Y")}}</p>
+				    </div>
+				    <label class="col-xs-2 col-sm-5 control-label">Baja</label>
+				    <div class="col-xs-10 col-sm-7">
+				      <p class="form-control-static">{% if socio.baja %}{{socio.baja|date("m/d/Y")}}{% else %}{{socio.alta|date_modify("+1 year")|date("m/d/Y")}} (fecha programada){% endif %}</p>
+				    </div>
+				    <label class="col-xs-2 col-sm-5 control-label">Fecha de creación</label>
+				    <div class="col-xs-10 col-sm-7">
+				      <p class="form-control-static">{{socio.createdAt|date("m/d/Y")}} a las {{socio.createdAt|date("H:i:s")}}</p>
+				    </div>
+				    <label class="col-xs-2 col-sm-5 control-label">Estado</label>
+				    <div class="col-xs-10 col-sm-7">
+				      <p class="form-control-static">
+				      	{% if socio.removed %}
+				      		{% set color = 'danger' %}
+				      		{% set msg = 'Borrado' %}
+				      	{% elseif not socio.activo %}
+				      		{% set color = 'orange' %}
+				      		{% set msg = 'De baja' %}
+				      	{% else %}
+				      		{% set color = 'green' %}
+				      		{% set msg = 'Activo' %}
+				      	{% endif %}
+				      	<span class="label {{'label-' ~ color}}">{{msg}}</span></p>
+				    </div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading"><h2 class='panel-title'><i class="fa fa-cogs fa-fw"></i> Acciones</h2></div>
+		  		<div class="panel-body form-group">
+				    <div class="col-xs-12 text-center">
+				    	<div class="btn-group" role="group" aria-label="...">
+					    	{% if socio.version == socio.versions|length %}
+					    		{% if socio.removed %}				    	
+					    			<a class="btn btn-cyan" href="{{ url('socio.restore', {socio: socio.id}) }}" role="button"><i class="fa fa-undo fa-fw"></i> Restaurar</a>
+					    			<a class="btn btn-danger" href="#" role="button"><i class="fa fa-eraser fa-fw"></i> Borrar definitivamente</a>
+					    		{% else %}
+					    			{% if socio.activo %}
+					    				<a class="btn btn-green" href="#" role="button"><i class="fa fa-pencil-square-o fa-fw"></i> Editar</a>
+					    				<a class="btn btn-orange" href="{{ url('socio.dismiss', {socio: socio.id}) }}" role="button"><i class="fa fa-arrow-circle-down fa-fw"></i>  Dar de baja</a>
+					    			{% endif %}
+					    			<a class="btn btn-danger" href="{{ url('socio.remove', {socio: socio.id}) }}" role="button"><i class="fa fa-trash fa-fw"></i> Borrar</a>
+					    		{% endif %}
+						    {% else %}
+						    	<a class="btn btn-cyan" href="#" role="button">Comparar Versiones</a>
+						    	<a class="btn btn-orange" href="#" role="button">Restaurar Versión</a>
+						    {% endif %}
+				  		</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h2 class='panel-title'><i class="fa fa-history fa-fw"></i> Historial de Versiones</h2></div>
+					<div class="panel-body"></div>
+					<table class="table table-condensed table-hover table-striped table-responsive">
+						<tr>
+							<th>#</th>
+							<th>Comentario</th>
+							<th>Autor</th>
+							<th>Fecha</th>
+							<th></th>
+						</tr>
+						{% for version in socio.versions|reverse %}
+							<tr{% if socio.version == version.version %} class="green" style="font-weight:700"{% endif %}>
+								<td>
+									{% spaceless %}
+									{% if socio.version == version.version %}
+										{{version.version}}
+									{% else %}
+										<a href="{{ url('socio.read_version', {socio: socio.id, version: version.version}) }}">{{version.version}}</a>
+									{% endif %}
+									{% endspaceless %}
+								</td>
+								<td>{{version.comment}}</td>
+								<td>{{version.createdBy}}</td>
+								<td>{{version.createdAt|date("m/d/Y")}} a las {{version.createdAt|date("H:i:s")}}</td>
+								<td></td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 {% endblock %}
