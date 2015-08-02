@@ -1,12 +1,14 @@
 <?php
 
-namespace EsnUab\Libro\EventListener;
+namespace EsnUab\Cron\EventListener;
 
 use EsnUab\Libro\EventListener\Event\SocioEvent;
+use EsnUab\Libro\EventListener\SocioEvents;
+use EsnUab\Cron\Model\SocioTask;
 use Silex\Application;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class SocioListener implements EventSubscriberInterface
+class TaskListener implements EventSubscriberInterface
 {
     protected $app;
 
@@ -18,6 +20,10 @@ class SocioListener implements EventSubscriberInterface
     public function onSocioCreated(SocioEvent $event)
     {
         $socio = $event->getSocio();
+
+        $socioTask = new SocioTask();
+        $socioTask->setTargetId($socio->getId())
+            ->save();
     }
 
     public static function getSubscribedEvents()
