@@ -35,14 +35,14 @@ class MainControllerProvider implements ControllerProviderInterface, ServiceProv
             ->template('socio/query.html.twig');
         $controllers->get('/{socio}', 'socio/read')
             ->assert('socio', '\d+')
-            ->before('libro.socio.middleware:findSocio')
+            ->convert('socio', 'libro.socio.middleware:findSocio')
             ->bind('socio.read')
             ->template('socio/read.html.twig');
         $controllers->get('/{socio}/v{version}', 'socio/readVersion')
             ->assert('socio', '\d+')
             ->assert('version', '\d+')
-            ->before('libro.socio.middleware:findSocio')
-            ->before('libro.socio.middleware:findSocioVersion')
+            ->convert('socio', 'libro.socio.middleware:findSocio')
+            ->convert('version', 'libro.socio.middleware:findSocioVersion')
             ->bind('socio.read_version')
             ->template('socio/read.html.twig');
 
@@ -59,11 +59,19 @@ class MainControllerProvider implements ControllerProviderInterface, ServiceProv
             ->method('GET|POST')
             ->bind('socio.update');
 
-        $controllers->get('/{socio}/borrar', 'libro.controller.socio:deleteAction')
+        $controllers->match('/{socio}/baja', 'socio/modify')
             ->assert('socio', '\d+')
-            ->convert('socio', 'libro.controller.socio:findSocio')
-            ->template('read.html.twig')
-            ->bind('socio.delete');
+            ->convert('socio', 'libro.socio.middleware:findAndDismissSocio')
+            ->method('GET|POST')
+            ->bind('socio.dismiss');
+        $controllers->get('/{socio}/borrar', 'socio/modify')
+            ->assert('socio', '\d+')
+            ->convert('socio', 'libro.socio.middleware:findAndRemoveSocio')
+            ->bind('socio.remove');
+        $controllers->get('/{socio}/restaurar', 'socio/modify')
+            ->assert('socio', '\d+')
+            ->convert('socio', 'libro.socio.middleware:findAndRestoreSocio')
+            ->bind('socio.restore');
 
         return $controllers;
     }
