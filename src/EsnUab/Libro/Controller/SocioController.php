@@ -2,6 +2,8 @@
 
 namespace EsnUab\Libro\Controller;
 
+use EsnUab\Libro\EventListener\SocioEvents;
+use EsnUab\Libro\EventListener\Event\SocioEvent;
 use EsnUab\Libro\Form\SocioType;
 use EsnUab\Libro\Model\Socio;
 use EsnUab\Libro\Model\SocioVersion;
@@ -9,8 +11,6 @@ use Silex\Application;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
-use EsnUab\Libro\EventListener\SocioEvents;
-use EsnUab\Libro\EventListener\Event\SocioEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class SocioController
